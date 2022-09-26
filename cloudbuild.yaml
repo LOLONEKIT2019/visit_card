@@ -11,28 +11,22 @@ steps:
     args:
       - ./build.sh
     id: build_app
-    waitFor:
-      - test
 
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build',
       '-t',
-      '$_REGISTRY/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$SHORT_SHA',
+      '$_REGISTRY/$PROJECT_ID/$_REPO_NAME/$_APP_NAME:$SHORT_SHA',
       './tmp'
     ]
     id: build_image
-    waitFor:
-      - build_app
 
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'push',
-      '$_REGISTRY/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$SHORT_SHA',
+      '$_REGISTRY/$PROJECT_ID/$_REPO_NAME/$_APP_NAME:$SHORT_SHA',
     ]
     id: push_image
-    waitFor:
-      - build_image
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
@@ -41,17 +35,14 @@ steps:
       - 'deploy'
       - '$_APP_NAME'
       - '--image'
-      - '$_REGISTRY/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$SHORT_SHA'
+      - '$_REGISTRY/$PROJECT_ID/$_REPO_NAME/$_APP_NAME:$SHORT_SHA'
       - '--region'
       - '$_APP_REGION'
     id: deploy
-    waitFor:
-      - push_image
 
 substitutions:
   _REPO_NAME: my-repo
-  _IMAGE_NAME: visit-card
   _REGISTRY: europe-central2-docker.pkg.dev
-  _APP_NAME: docker-app-visit-card
-  _APP_REGION: europe-central2
+  _APP_NAME: visit-card
+  _APP_REGION: europe-west1
 
