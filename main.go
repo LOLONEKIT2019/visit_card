@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -39,5 +40,8 @@ func main() {
 		},
 	)
 
-	http.ListenAndServeTLS(port, tlsCrt, tlsKey, r)
+	log.Printf("service started on port %s", port)
+	if err := http.ListenAndServeTLS(port, tlsCrt, tlsKey, r); err != nil {
+		log.Printf("start server error: %s", err.Error())
+	}
 }
