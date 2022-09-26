@@ -10,7 +10,7 @@ steps:
     entrypoint: /bin/bash
     args:
       - ./build.sh
-    id: build
+    id: build_app
     waitFor:
       - test
 
@@ -21,8 +21,11 @@ steps:
       'europe-central2-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$SHORT_SHA',
       './tmp'
     ]
+    id: build_image
+    waitFor:
+      - build_app
 
 substitutions:
-  _FUNCTION_PROJECT : astahov-prod
-  _IMAGE_NAME   : visit-card
+  _REPO_NAME: my-repo
+  _IMAGE_NAME: visit-card
 
