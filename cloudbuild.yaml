@@ -3,13 +3,6 @@ steps:
   - name: golang:1.17
     entrypoint: /bin/bash
     args:
-      - go test ./...
-    id: test
-
-  - name: golang:1.17
-    entrypoint: /bin/bash
-    args:
       - ./build.sh
     id: build
-    waitFor: [ 'test' ]
 
