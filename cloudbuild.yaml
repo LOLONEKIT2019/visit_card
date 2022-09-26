@@ -18,7 +18,7 @@ steps:
     args: [
       'build',
       '-t',
-      '$_REGISTRY',
+      '$_REGISTRY/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$SHORT_SHA',
       './tmp'
     ]
     id: build_image
@@ -28,11 +28,12 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'push',
-      '$_REGISTRY',
+      '$_REGISTRY/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$SHORT_SHA',
     ]
+    id: push_image
 
 substitutions:
   _REPO_NAME: my-repo
   _IMAGE_NAME: visit-card
-  _REGISTRY: europe-central2-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$SHORT_SHA
+  _REGISTRY: europe-central2-docker.pkg.dev
 
