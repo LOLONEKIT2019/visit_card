@@ -2,7 +2,7 @@ echo "BUILDING APPLICATION..."
 
 rm -r -f tmp
 mkdir tmp
-cp -r tls tmp/tls
+
 cp -r content tmp/content
 cp Dockerfile tmp/Dockerfile
 

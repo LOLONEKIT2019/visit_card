@@ -13,9 +13,6 @@ const (
 	contentIndex  = "./content/index.html"
 	contentImages = "./content/images"
 
-	tlsCrt = "./tls/server.crt"
-	tlsKey = "./tls/server.key"
-
 	port = ":8080"
 )
 
@@ -39,11 +36,6 @@ func main() {
 			http.ServeFile(w, r, fmt.Sprintf("%s/%s", contentImages, mux.Vars(r)["path"]))
 		},
 	)
-
-	/*log.Printf("service started on port %s", port)
-	if err := http.ListenAndServeTLS(port, tlsCrt, tlsKey, r); err != nil {
-		log.Printf("start server error: %s", err.Error())
-	}*/
 
 	log.Printf("service started on port %s", port)
 	if err := http.ListenAndServe(port, r); err != nil {
