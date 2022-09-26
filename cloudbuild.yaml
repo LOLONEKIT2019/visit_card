@@ -18,14 +18,21 @@ steps:
     args: [
       'build',
       '-t',
-      'europe-central2-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$SHORT_SHA',
+      '$_REGISTRY',
       './tmp'
     ]
     id: build_image
     waitFor:
       - build_app
 
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push',
+      '$_REGISTRY',
+    ]
+
 substitutions:
   _REPO_NAME: my-repo
   _IMAGE_NAME: visit-card
+  _REGISTRY: europe-central2-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME:$SHORT_SHA
 
