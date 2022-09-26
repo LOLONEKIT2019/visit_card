@@ -3,13 +3,13 @@ steps:
   - name: golang:1.17
     entrypoint: /bin/bash
     args:
-      - ./test.sh
+      - ./scripts/test.sh
     id: test
 
   - name: golang:1.17
     entrypoint: /bin/bash
     args:
-      - ./build.sh
+      - ./scripts/build.sh
     id: build_app
 
   - name: 'gcr.io/cloud-builders/docker'
