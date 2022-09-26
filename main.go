@@ -40,8 +40,13 @@ func main() {
 		},
 	)
 
-	log.Printf("service started on port %s", port)
+	/*log.Printf("service started on port %s", port)
 	if err := http.ListenAndServeTLS(port, tlsCrt, tlsKey, r); err != nil {
+		log.Printf("start server error: %s", err.Error())
+	}*/
+
+	log.Printf("service started on port %s", port)
+	if err := http.ListenAndServe(port, r); err != nil {
 		log.Printf("start server error: %s", err.Error())
 	}
 }
