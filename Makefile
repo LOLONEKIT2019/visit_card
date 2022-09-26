@@ -20,7 +20,5 @@ build:
 
 		CGO_ENABLED=0 GOOS=linux go build -a -ldflags '-w' -v -o ./tmp/app ./
 
-		docker build --tag ${IMAGE_TAG} ./tmp
-
 		rm -r tmp
 
